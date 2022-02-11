@@ -1,7 +1,7 @@
 /* 
  * @Author       : Eug
  * @Date         : 2022-02-11 16:00:18
- * @LastEditTime : 2022-02-11 16:27:33
+ * @LastEditTime : 2022-02-11 17:28:11
  * @LastEditors  : Eug
  * @Descripttion : Descripttion
  * @FilePath     : /egg-example/app/controller/article.js
@@ -12,19 +12,10 @@ const Controller = require('egg').Controller;
 
 class ArticleController extends Controller {
   async info() {
-    // const { app } = this;
-    const result = await this.app.mysql.select('Table_User',{
-      columns: ['user_name', 'user_email', 'create_time', 'update_time', 'user_id'], //查询字段，全部查询则不写，相当于查询*
-      // where: {
-      //   name: 'wjw'
-      // }, //查询条件
-      // orders: [
-      //     ['id', 'desc'] //降序desc，升序asc
-      // ],
-      // limit: 10, //查询条数
-      // offset: 0 //数据偏移量（分页查询使用）
-    })
-    this.ctx.body = result
+    const { ctx } = this;
+    const result = await ctx.service.article.searchArticle();
+    ctx.body = result
+    ctx.returnBody(200, '查询成功', result)
   }
 }
 // TODO 插入，向users表内插入一条数据

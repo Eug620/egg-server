@@ -1,7 +1,7 @@
 /* 
  * @Author       : Eug
  * @Date         : 2022-02-11 14:42:57
- * @LastEditTime : 2022-02-11 17:04:29
+ * @LastEditTime : 2022-02-11 18:11:52
  * @LastEditors  : Eug
  * @Descripttion : Descripttion
  * @FilePath     : /egg-example/config/config.default.js
@@ -9,6 +9,14 @@
 /* eslint valid-jsdoc: "off" */
 
 'use strict';
+
+const I18n = require('i18n');
+
+I18n.configure({
+  locales: ['zh-CN'],
+  defaultLocale: 'zh-CN',
+  directory: __dirname + '/locale',
+});
 
 /**
  * @param {Egg.EggAppInfo} appInfo app info
@@ -74,6 +82,9 @@ module.exports = appInfo => {
   // add your middleware config here
   // 注入中间件
   config.middleware = [
+    'init',
+    'errorHanlder',
+    'requier',
     'params',
   ];
 
@@ -86,6 +97,16 @@ module.exports = appInfo => {
       hostname: '127.0.0.1',
       // path: '/var/run/egg.sock',
     }
+  }
+
+
+  config.validate = {
+    // convert: false,
+    // validateRoot: false,
+    translate() {
+        const args = Array.prototype.slice.call(arguments);
+        return I18n.__.apply(I18n, args);
+    },
   }
 
   return {

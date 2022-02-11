@@ -1,7 +1,7 @@
 /* 
  * @Author       : Eug
  * @Date         : 2022-02-11 14:52:37
- * @LastEditTime : 2022-02-11 15:35:24
+ * @LastEditTime : 2022-02-11 18:08:40
  * @LastEditors  : Eug
  * @Descripttion : Descripttion
  * @FilePath     : /egg-example/app/controller/user.js
@@ -24,13 +24,17 @@ class UserController extends Controller {
     console.log(ctx.query);
     // queries会将数据存为数组格式
     console.log(ctx.queries);
-    
+
     ctx.body = {
       query: ctx.query,
       queries: ctx.queries
     }
   }
   async post() {
+    const { ctx } = this
+    ctx.body = ctx.request.body;
+  }
+  async userList() {
     const { ctx } = this
     ctx.body = ctx.request.body;
   }

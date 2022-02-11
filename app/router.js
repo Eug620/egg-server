@@ -18,4 +18,9 @@ module.exports = app => {
   // article mysql
   router.get('/article', controller.article.info);
 
+
+  // 参数校验
+  router.get('/user/userList', controller.user.userList);
+
+
 };
